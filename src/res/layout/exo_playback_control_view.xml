@@ -1,84 +1,13 @@
 <?xml version="1.0" encoding="utf-8"?>
 <FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:layout_gravity="center"
     android:layoutDirection="ltr"
     android:orientation="vertical">
 
-    <!-- Control button bar -->
-    <LinearLayout
-        android:id="@id/exo_buttons"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_gravity="center"
-        android:gravity="center"
-        android:orientation="horizontal">
-
-        <!--ImageButton android:id="@id/exo_prev"
-                     android:layout_width="80dp"
-                     android:layout_height="80dp"
-                     android:layout_gravity="center"
-                     android:adjustViewBounds="true"
-                     android:scaleType="centerInside"
-                     android:background="#00000000"
-                     style="@style/ExoMediaButton.Previous"/-->
-
-        <ImageButton android:id="@id/exo_rew"
-            android:layout_width="80dp"
-            android:layout_height="80dp"
-            android:paddingLeft="8dp"
-            android:paddingRight="8dp"
-            android:layout_gravity="center"
-            android:adjustViewBounds="true"
-            android:scaleType="centerInside"
-            android:background="#00000000"
-            style="@style/ExoMediaButton.Rewind"/>
-
-        <ImageButton android:id="@id/exo_play"
-            android:layout_width="80dp"
-            android:layout_height="80dp"
-            android:paddingLeft="8dp"
-            android:paddingRight="8dp"
-            android:layout_gravity="center"
-            android:adjustViewBounds="true"
-            android:scaleType="centerInside"
-            android:background="#00000000"
-            style="@style/ExoMediaButton.Play"/>
-
-        <ImageButton android:id="@id/exo_pause"
-            android:layout_width="80dp"
-            android:layout_height="80dp"
-            android:paddingLeft="8dp"
-            android:paddingRight="8dp"
-            android:layout_gravity="center"
-            android:adjustViewBounds="true"
-            android:scaleType="centerInside"
-            android:background="#00000000"
-            style="@style/ExoMediaButton.Pause"/>
-
-        <ImageButton android:id="@id/exo_ffwd"
-            android:layout_width="80dp"
-            android:layout_height="80dp"
-            android:paddingLeft="8dp"
-            android:paddingRight="8dp"
-            android:layout_gravity="center"
-            android:adjustViewBounds="true"
-            android:scaleType="centerInside"
-            android:background="#00000000"
-            style="@style/ExoMediaButton.FastForward"/>
-
-        <!--ImageButton android:id="@id/exo_next"
-                     android:layout_width="80dp"
-                     android:layout_height="80dp"
-                     android:layout_gravity="center"
-                     android:adjustViewBounds="true"
-                     android:scaleType="centerInside"
-                     android:background="#00000000"
-                     style="@style/ExoMediaButton.Next"/-->
-    </LinearLayout>
-
-    <!-- Buttom info bar -->
+    <!-- Bottom info bar -->
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
@@ -113,58 +42,88 @@
             android:paddingLeft="8dp">
 
             <!-- First line -->
-            <TextView android:id="@id/exo_title"
+            <TextView
+                android:id="@id/exo_title"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
+                android:paddingLeft="8dp"
                 android:layout_gravity="center_vertical"
                 android:gravity="center_vertical"
-                android:textSize="26dp"
-                android:textStyle="bold"
                 android:includeFontPadding="false"
-                android:textColor="#FFBEBEBE"/>
+                android:textColor="#FFBEBEBE"
+                android:textSize="26dp" />
 
             <!-- Second line -->
-            <TextView android:id="@id/exo_subtitle"
+            <TextView
+                android:id="@id/exo_subtitle"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
+                android:paddingLeft="8dp"
                 android:layout_gravity="center_vertical"
                 android:gravity="center_vertical"
-                android:textSize="20dp"
-                android:textStyle="bold"
                 android:includeFontPadding="false"
-                android:textColor="#FFBEBEBE"/>
+                android:textColor="#FFBEBEBE"
+                android:textSize="20dp" />
 
             <!-- Third line -->
-            <LinearLayout android:id="@id/exo_timebar"
+            <LinearLayout
+                android:id="@id/exo_timebar"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:paddingTop="4dp"
                 android:gravity="center_vertical"
-                android:orientation="horizontal">
+                android:orientation="horizontal"
+                android:paddingTop="8dp">
 
-                <TextView android:id="@id/exo_position"
+                <ImageButton
+                    android:id="@id/exo_play"
+                    style="@style/ExoMediaButton.Play"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:textSize="20dp"
-                    android:textStyle="bold"
-                    android:paddingRight="6dp"
-                    android:includeFontPadding="false"
-                    android:textColor="#FFBEBEBE"/>
+                    android:paddingRight="8dp"
+                    android:layout_gravity="center"
+                    android:adjustViewBounds="true"
+                    android:background="#00000000"
+                    android:scaleType="centerInside" />
 
-                <com.google.android.exoplayer2.ui.DefaultTimeBar
+                <ImageButton
+                    android:id="@id/exo_pause"
+                    style="@style/ExoMediaButton.Pause"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:paddingRight="8dp"
+                    android:layout_gravity="center"
+                    android:adjustViewBounds="true"
+                    android:background="#00000000"
+                    android:scaleType="centerInside" />
+
+                <TextView
+                    android:id="@id/exo_position"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:includeFontPadding="false"
+                    android:paddingRight="6dp"
+                    android:textColor="#FFBEBEBE"
+                    android:textSize="20dp"
+                    android:textStyle="bold" />
+
+                <co.frontyard.cordova.plugin.exoplayer.TimeBarWithMarkers
                     android:id="@id/exo_progress"
                     android:layout_width="0dp"
+                    android:layout_height="26dp"
                     android:layout_weight="1"
-                    android:layout_height="26dp"/>
+                    app:bar_height="6dp"
+                    app:ad_marker_width="6dp"
+                    app:ad_marker_color="#97001d" />
 
-                <TextView android:id="@id/exo_duration"
+                <TextView
+                    android:id="@id/exo_duration"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:textSize="20dp"
-                    android:textStyle="bold"
-                    android:paddingLeft="6dp"
                     android:includeFontPadding="false"
-                    android:textColor="#FFBEBEBE"/>
+                    android:paddingLeft="6dp"
+                    android:textColor="#FFBEBEBE"
+                    android:textSize="20dp"
+                    android:textStyle="bold" />
             </LinearLayout>
         </LinearLayout>
     </LinearLayout>

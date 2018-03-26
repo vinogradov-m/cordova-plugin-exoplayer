@@ -65,7 +65,6 @@ public class LayoutProvider {
     public static void setupController(SimpleExoPlayerView parentView, Activity activity, JSONObject controller) {
         if (null != controller) {
             parentView.setUseController(true);
-            setupButtons(parentView, activity, controller);
             setupBar(parentView, activity, controller);
         }
         else {
@@ -73,71 +72,43 @@ public class LayoutProvider {
         }
     }
 
-    private static void setupButtons(SimpleExoPlayerView parentView, Activity activity, JSONObject controller) {
-        java.lang.String packageName = activity.getPackageName();
-        JSONObject buttonsConfig = controller.optJSONObject("controlIcons");
-        if (null != buttonsConfig) {
-            for (BUTTON b : BUTTON.values()) {
-                String buttonName = b.name();
-                if (buttonsConfig.has(buttonName)) {
-                    ImageButton imageButton = (ImageButton) findView(parentView, activity, buttonName);
-                    if (null != imageButton) {
-                        String buttonUrl = buttonsConfig.optString(buttonName);
-                        if (null == buttonUrl) {
-                            Log.i(Player.TAG, "Hiding " + buttonName + " button");
-                            imageButton.setVisibility(View.GONE);
-                        }
-                        else {
-                            Log.i(Player.TAG, "Loading " + buttonName + " from " + buttonUrl);
-                            Picasso.with(imageButton.getContext()).load(buttonUrl).into(imageButton);
-                        }
-                    }
-                    else {
-                        Log.e(Player.TAG, "ImageButton " + buttonName + " not found!");
-                    }
-                }
-            }
-        }
-        else {
-            LinearLayout exoButtons = (LinearLayout) findView(parentView, activity, "exo_buttons");
-            exoButtons.setVisibility(View.GONE);
-        }
-    }
-
     private static void setupBar(SimpleExoPlayerView parentView, Activity activity, JSONObject controller) {
         String streamTitle = controller.optString("streamTitle", null);
         String streamDescription = controller.optString("streamDescription", null);
         String streamImage = controller.optString("streamImage", null);
+        JSONArray markersData = controller.optJSONArray("chapterMarkers");
 
         ImageView imageView = (ImageView) findView(parentView, activity, "exo_image");
         TextView titleView = (TextView) findView(parentView, activity, "exo_title");
         TextView subtitleView = (TextView) findView(parentView, activity, "exo_subtitle");
-        View timebarView = findView(parentView, activity, "exo_timebar");
-        TextView positionView = (TextView) findView(timebarView, activity, "exo_position");
-        TextView durationView = (TextView) findView(timebarView, activity, "exo_duration");
+        TimeBarWithMarkers timeBarView = (TimeBarWithMarkers)findView(parentView, activity, "exo_progress");
 
-        if(null != streamImage) {
+        if (null != streamImage) {
             Picasso.with(imageView.getContext()).load(streamImage).into(imageView);
         }
-        if(null != streamTitle) {
+
+        if (null != streamTitle) {
             titleView.setText(streamTitle);
+        } else {
+            titleView.setVisibility(View.GONE);
         }
+
         if (null != streamDescription && !streamDescription.equals("null")) { // TODO: Why are we getting string "null" here?
             subtitleView.setText(streamDescription);
         }
         else {
             subtitleView.setVisibility(View.GONE);
         }
-        if (controller.optBoolean("hideProgress")) {
-            timebarView.setVisibility(View.GONE);
-        }
-        else {
-            if (controller.optBoolean("hidePosition")) {
-                positionView.setVisibility(View.GONE);
-            }
-            if (controller.optBoolean("hideDuration")) {
-                durationView.setVisibility(View.GONE);
-            }
+
+        if (null != markersData) {
+            try {
+                int markerCount = markersData.length();
+                long[] adGroupTimesMs = new long[markerCount];
+                for (int markerIndex = 0; markerIndex < markerCount; markerIndex++) {
+                    adGroupTimesMs[markerIndex] = markersData.getLong(markerIndex);
+                }
+                timeBarView.setMarkers(adGroupTimesMs);
+            } catch (JSONException ignored) {}
         }
     }
 
