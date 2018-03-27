@@ -1,6 +1,6 @@
 {
   "name": "cordova-plugin-exoplayer-lite",
-  "version": "1.0.0",
+  "version": "2.5.3",
   "description": "Fork of project of Nedim Cholich for my personal needs",
   "cordova": {
     "id": "cordova-plugin-exoplayer-lite",
