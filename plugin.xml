@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <plugin xmlns="http://www.phonegap.com/ns/plugins/1.0"
         id="cordova-plugin-exoplayer-lite"
-        version="2.5.3">
+        version="2.5.4">
 
     <name>ExoPlayer</name>
     <description>Lite version of Cordova Plugin implementing ExoPlayer video/audio player</description>
